@@ -1,15 +1,46 @@
 const { Router } = require('express');
+const USER = require('../models/user');
 
 const router = Router();
 
-router.get('/signin', (req, res) => {
-  return res.render('signin');
-});
 
+// signup
 router.get('/signup', (req, res) => {
   return res.render('signup');
 });
 
-router.get('/login', (req, res) => {
-  return res.render('login');
+router.post('/signup', async (req, res) => {
+  const {fullname, gender,email, password} = req.body;
+
+  await USER.create({
+    fullname,
+    gender,
+    email,
+    password
+  });
+
+  return res.redirect('/');
 });
+
+
+// signin
+router.get('/signin', (req, res) => {
+  return res.render('signin');
+});
+
+router.post('/signin', (req, res) => {
+
+  // home
+  return res.redirect('/');
+});
+
+
+// signout
+router.post('/signout', (req, res) => {
+
+  // home
+  return res.redirect('/');
+})
+
+
+module.exports = router;
