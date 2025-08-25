@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <%- include('./partials/head')%> <!--head-->
+    <title>The Narrative - Signin</title>
+  </head>
+
+  <body class="bg-dark">
+    <header></header>
+    
+    <%- include('./partials/nav')%> <!--navbar-->
+
+    <main>
+      
+      <!-- signin form -->
+      <form method="post" action="/user/signin" class="row g-3 text-white list-group align-items-center m-5">
+         
+        <!-- email -->
+        <div class="col-3">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" class="form-control" id="inputEmail4" placeholder="example@email.com" name="email" />
+        </div>
+
+        <!-- password -->
+        <div class="col-3">
+          <label for="inputPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" />
+        </div>
+
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-primary" style="width: 10%;">Sign in</button>
+        </div>
+
+      </form>
+
+
+    </main>
+
+    <footer></footer>
+
+    <%- include('./partials/scripts')%> <!--js-->
+  </body>
+
+</html>
