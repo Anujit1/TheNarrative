@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <%- include('./partials/head')%> <!--head-->
+    <title>The Narrator - Home</title>
+  </head>
+
+  <body class="bg-dark">
+    <header></header>
+    
+    <%- include('./partials/nav')%> <!--navbar-->
+
+    <main>
+      
+      <!-- signup form -->
+      <form method="post" action="/user/signup" class="row g-3 text-white list-group align-items-center m-5">
+        
+        <!-- name -->
+        <div class="col-3">
+          <label for="inputFullname" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="inputFullname" placeholder="John Doe" name="fullname" />
+        </div>
+         
+        <!-- email -->
+        <div class="col-3">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" class="form-control" id="inputEmail4" placeholder="example@email.com" name="email" />
+        </div>
+
+        <!-- password -->
+        <div class="col-3">
+          <label for="inputPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" />
+        </div>
+
+        <!-- gender -->
+        <div class="col-3">
+          <label for="inputGender" class="form-label">Gender</label>
+          <select id="inputGender" class="form-select" name="gender">
+            <option selected>Choose...</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-primary" style="width: 10%;">Sign up</button>
+        </div>
+
+      </form>
+
+
+    </main>
+
+    <footer></footer>
+
+    <%- include('./partials/scripts')%> <!--js-->
+  </body>
+
+</html>

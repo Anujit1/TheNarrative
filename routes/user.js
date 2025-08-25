@@ -10,6 +10,8 @@ router.get('/signup', (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
+  console.log(req.body); // test
+
   const {fullname, gender,email, password} = req.body;
 
   await USER.create({

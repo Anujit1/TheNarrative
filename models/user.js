@@ -1,7 +1,8 @@
 const { createHmac, randomBytes } = require('crypto');
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+const { nextTick } = require('process');
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   fullname: {
     type: String,
     required: true
@@ -13,7 +14,7 @@ const userSchema = new Schema({
   },
   gender:{
     type: String,
-    enum: ['MALE', 'FEMALE'],
+    enum: ['Male', 'Female'],
     required: true
   },
   password:{
@@ -21,8 +22,7 @@ const userSchema = new Schema({
     required: true
   },
   salt: {
-    type: String,
-    required: true
+    type: String
   },
   profileImageURL: {
     type: String,
@@ -47,9 +47,9 @@ userSchema.pre('save', function () {
   this.salt = salt;
   this.password = hashedPassword;
 
-  next();  
+  nextTick;
 })
 
-const USER = model('user', userSchema);
+const USER = mongoose.model('user', userSchema);
 
-module.exports = USER;
+module.exports = USER; 
