@@ -1,5 +1,5 @@
-const { createHmac, randomBytes } = require('crypto');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const { createUserToken } = require('../services/authentication');
 
 const userSchema = new mongoose.Schema({
@@ -12,17 +12,14 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  gender:{
+  gender: {
     type: String,
     enum: ['Male', 'Female'],
     required: true
   },
-  password:{
+  password: {
     type: String,
     required: true
-  },
-  salt: {
-    type: String
   },
   profileImageURL: {
     type: String,
@@ -35,46 +32,36 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-userSchema.pre('save', function (next) {
-  const user = this;
 
-  if(!user.isModified('password')) return;
+// hash password before saving
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
 
-  const salt = randomBytes(16).toString();
-
-  const hashedPassword = createHmac('sha256', salt).update(user.password).digest('hex');
-
-  this.salt = salt;
-  this.password = hashedPassword;
+  const saltRounds = 10;
+  this.password = await bcrypt.hash(this.password, saltRounds);
 
   next();
 });
 
-userSchema.static('matchPassword', async function(email, password){
-  const user = await this.findOne({email});
 
-  // email error
-  if(!user){ 
-    return {status:null, err: 'Email not found!'};
+// login check
+userSchema.static('matchPassword', async function (email, password) {
+  const user = await this.findOne({ email });
+
+  if (!user) {
+    return { status: null, err: 'Email not found!' };
   }
 
-  const salt = user.salt;
-  const userProvidedHash = createHmac('sha256', salt)
-    .update(password)
-    .digest('hex');
-  
-  /* console.log("user.salt: ", salt, "\n", "rec-pass: ", password, "\n", "hash-rec pass: ", userProvidedHash, "\n", "hash pass: ", user.password, "\n");  // test for password match */
+  const isMatch = await bcrypt.compare(password, user.password);
 
-  //password error
-  if (userProvidedHash !== user.password){ 
+  if (!isMatch) {
     return { status: false, err: 'Password does not match!' };
   }
 
   const token = createUserToken(user);
-
   return { status: true, token };
 });
 
 const USER = mongoose.model('user', userSchema);
 
-module.exports = USER; 
+module.exports = USER;
