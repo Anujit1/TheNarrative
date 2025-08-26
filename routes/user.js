@@ -31,15 +31,20 @@ router.get('/signin', (req, res) => {
 
 router.post('/signin', async (req, res) => {
   const { email, password } = req.body;
-  const user = await USER.matchPassword(email, password);
+  const result = await USER.matchPassword(email, password);
 
   /* console.log('User: => ',user);  // test */
 
-  if(!user) {
-    return res.render('signin');
+  if (!result.status) {
+    return res.render('signin', { err: result.err });
   }
-  // home
-  return res.redirect('/');
+
+  // Set cookie or session with token
+  res.cookie("token", result.token, {
+    httpOnly: true,
+    maxAge: 60 * 60 * 1000 // 1 hour
+  }).redirect('/');  
+
 });
 
 
