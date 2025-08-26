@@ -1,6 +1,5 @@
 const { createHmac, randomBytes } = require('crypto');
 const mongoose = require('mongoose');
-const { nextTick } = require('process');
 
 const userSchema = new mongoose.Schema({
   fullname: {
