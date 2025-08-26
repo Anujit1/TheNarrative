@@ -44,22 +44,15 @@ userSchema.pre('save', async function (next) {
 });
 
 
-// login check
-userSchema.static('matchPassword', async function (email, password) {
+// check user signin credentials
+userSchema.static('findByCredentials', async function(email, password) {
   const user = await this.findOne({ email });
-
-  if (!user) {
-    return { status: null, err: 'Email not found!' };
-  }
+  if (!user) throw new Error('Email not found!');
 
   const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) throw new Error('Password does not match!');
 
-  if (!isMatch) {
-    return { status: false, err: 'Password does not match!' };
-  }
-
-  const token = createUserToken(user);
-  return { status: true, token };
+  return user;
 });
 
 const USER = mongoose.model('user', userSchema);

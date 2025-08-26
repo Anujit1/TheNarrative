@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const USER = require('../models/user');
 const router = Router();
+const { createUserToken } = require('../services/authentication')
 
 
 // signup
@@ -29,22 +30,20 @@ router.get('/signin', (req, res) => {
   return res.render('signin');
 });
 
-router.post('/signin', async (req, res) => {
-  const { email, password } = req.body;
-  const result = await USER.matchPassword(email, password);
+// controllers/user.js
+router.post('/signin', async (req, res, next) => {
+  try {
+    const user = await USER.findByCredentials(req.body.email, req.body.password);
+    const token = createUserToken(user);
 
-  /* console.log('User: => ',user);  // test */
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000
+    }).redirect('/');
 
-  if (!result.status) {
-    return res.render('signin', { err: result.err });
+  } catch (err) {    
+    return res.render('signin', { err: err.message });
   }
-
-  // Set cookie or session with token
-  res.cookie("token", result.token, {
-    httpOnly: true,
-    maxAge: 60 * 60 * 1000 // 1 hour
-  }).redirect('/');  
-
 });
 
 
