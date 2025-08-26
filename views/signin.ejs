@@ -15,7 +15,13 @@
       
       <!-- signin form -->
       <form method="post" action="/user/signin" class="row g-3 text-white list-group align-items-center m-5">
-         
+        
+        <% if (locals?.err) { %>
+          <div class="alert alert-danger col-2" role="alert">
+            <%=locals.err%>
+          </div>
+        <% } %>
+
         <!-- email -->
         <div class="col-3">
           <label for="inputEmail4" class="form-label">Email</label>
