@@ -54,8 +54,8 @@ router.post('/signin', async (req, res, next) => {
 
 
 // signout
-router.post('/signout', (req, res) => {
-
+router.get('/signout', (req, res) => {
+  res.clearCookie('token');
   // home
   return res.redirect('/');
 })
