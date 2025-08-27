@@ -4,9 +4,10 @@ const { SESSION_SECRET } = require('../config');
 function createUserToken(user){
   const payload = {
     _id: user._id,
+    name: user.fullname,
     email: user.email,
     role: user.role,
-    profileImageUrl: user.profileImageUrl
+    profileImageUrl: user.profileImageURL
   }
 
   const token = JWT.sign(payload, SESSION_SECRET);
