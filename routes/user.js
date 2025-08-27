@@ -18,7 +18,7 @@ router.post('/signin', handleUserSignin);
 
 
 // SIGNOUT (prefer POST; GET shown for now)
-router.get('/signout', handleUserSignout);
+router.post('/signout', handleUserSignout);
 
 
 module.exports = router;
