@@ -14,14 +14,20 @@ router.post('/signup', async (req, res) => {
 
   const {fullname, gender,email, password} = req.body;
 
-  await USER.create({
+  const user = await USER.create({
     fullname,
     gender,
     email,
     password
   });
 
-  return res.redirect('/');
+  const token = createUserToken(user);
+
+  return res.cookie("token", token, {
+    httpOnly: true,
+    maxAge: 60 * 60 * 1000
+  }).redirect('/');
+
 });
 
 
