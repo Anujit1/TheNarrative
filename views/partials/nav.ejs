@@ -28,7 +28,7 @@
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><a class="dropdown-item" href="#">My Article</a></li>
               <li>
-                <form action="/user/signout" method="POST" class="d-inline">
+                <form action="/auth/signout" method="POST" class="d-inline">
                   <button type="submit" class="dropdown-item">Sign out</button>
                 </form>
               </li>
@@ -37,12 +37,12 @@
 
         <% } else { %>
 
-          <% if (currentPath !== '/user/signin') { %>
-            <li class="nav-item"><a class="nav-link" href="/user/signin">Signin</a></li>
+          <% if (currentPath !== '/auth/signin') { %>
+            <li class="nav-item"><a class="nav-link" href="/auth/signin">Signin</a></li>
           <% } %>
 
-          <% if (currentPath !== '/user/signup') { %>
-            <li class="nav-item"><a class="nav-link border-1 border-light" href="/user/signup">Signup</a></li>
+          <% if (currentPath !== '/auth/signup') { %>
+            <li class="nav-item"><a class="nav-link border-1 border-light" href="/auth/signup">Signup</a></li>
           <% } %>
 
         <% } %>

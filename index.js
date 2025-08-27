@@ -2,7 +2,7 @@
 const express = require('express');
 const path = require('path');
 const {PORT, MONGO_URI} = require('./config');
-const userRoute = require('./routes/user')
+const authRoute = require('./routes/auth')
 const { connectMongodb } = require('./connections');
 const cookieParser = require('cookie-parser');
 const { checkForAuthenticationCookie } = require('./middleware/authentication');
@@ -29,6 +29,6 @@ app.get('/', (req, res) => {
   return res.render('home');
 });
 
-app.use('/user', userRoute);
+app.use('/auth', authRoute);
 
 app.listen(PORT, () => console.log(`Server Started\nhttp://localhost:${PORT}`));
