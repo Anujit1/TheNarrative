@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
     enum: ['USER', 'ADMIN'],
     default: 'USER'
   }
-});
+}, { timestamps: true});
 
 
 // hash password before saving
