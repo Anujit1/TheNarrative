@@ -27,7 +27,11 @@
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><a class="dropdown-item" href="#">My Article</a></li>
-              <li><a class="dropdown-item" href="/user/signout">Logout</a></li>
+              <li>
+                <form action="/user/signout" method="POST" class="d-inline">
+                  <button type="submit" class="dropdown-item">Sign out</button>
+                </form>
+              </li>
             </ul>
           </li>
 
