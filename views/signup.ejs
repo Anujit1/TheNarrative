@@ -15,7 +15,13 @@
       
       <!-- signup form -->
       <form method="post" action="/auth/signup" class="row g-3 text-white list-group align-items-center m-5">
-        
+
+        <% if (locals?.err) { %>
+          <div class="alert alert-danger col-2" role="alert">
+            <%=locals.err%>
+          </div>
+        <% } %>
+
         <!-- name -->
         <div class="col-3">
           <label for="inputFullname" class="form-label">Full Name</label>
@@ -44,9 +50,11 @@
           </select>
         </div>
 
-        <div class="col-12 text-center">
+        <div class="col-12 text-center mt-4">
           <button type="submit" class="btn btn-primary" style="width: 10%;">Sign up</button>
         </div>
+
+        <p class="col-3 text-center m-4">Already a user? <a href="/auth/signin">Sign in</a></p>
 
       </form>
 

@@ -8,11 +8,6 @@
 
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto">
-    
-        <!-- links -->
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Article</a>
-        </li>
 
         <!-- check if user signed in-->
         <% if (user) { %>
@@ -35,15 +30,15 @@
             </ul>
           </li>
 
-        <% } else { %>
+        <% } else if (currentPath == '/') { %>
+          
+          <!-- links -->
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Article</a>
+          </li>
 
-          <% if (currentPath !== '/auth/signin') { %>
-            <li class="nav-item"><a class="nav-link" href="/auth/signin">Signin</a></li>
-          <% } %>
-
-          <% if (currentPath !== '/auth/signup') { %>
-            <li class="nav-item"><a class="nav-link border-1 border-light" href="/auth/signup">Signup</a></li>
-          <% } %>
+          <li class="nav-item"><a class="nav-link" href="/auth/signin">Signin</a></li>
+          <li class="nav-item"><a class="nav-link border-1 border-light" href="/auth/signup">Signup</a></li>
 
         <% } %>
 
