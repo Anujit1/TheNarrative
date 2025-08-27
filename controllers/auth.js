@@ -30,7 +30,7 @@ async function handleUserSignin (req, res) {
     const token = createUserToken(user);
     return res.cookie('token', token, cookieOpts).redirect('/');
   } catch (err) {
-    return res.status(400).render('signin', { err: err.message });
+    return res.status(err.status || 500).render('signin', { err: err.message });
   }
 }
 

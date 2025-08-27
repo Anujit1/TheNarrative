@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const { createUserToken } = require('../services/authentication');
+
 
 const userSchema = new mongoose.Schema({
   fullname: {
@@ -33,10 +33,21 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true});
 
 
+class AuthError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'AuthError';
+    this.status = 401;
+  }
+}
+
+
 // hash password before saving
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
+  this.email = this.email.trim().toLowerCase();
+  
   const saltRounds = 10;
   this.password = await bcrypt.hash(this.password, saltRounds);
 
@@ -45,16 +56,19 @@ userSchema.pre('save', async function (next) {
 
 
 // check user signin credentials
-userSchema.static('findByCredentials', async function(email, password) {
+userSchema.static('findByCredentials', async function(userEmail, password) {
+  const email = userEmail.trim().toLowerCase();
   const user = await this.findOne({ email });
-  if (!user) throw new Error('Email not found!');
+  if (!user) throw new AuthError('Invalid Email or Password');
 
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) throw new Error('Password does not match!');
+  if (!isMatch) throw new AuthError('Invalid Email or Password');
 
   return user;
 });
 
+
 const USER = mongoose.model('user', userSchema);
+
 
 module.exports = USER;
