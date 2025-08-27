@@ -8,25 +8,42 @@
 
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto">
+    
+        <!-- links -->
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="#">Article</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            User
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">My Article</a></li>
-            <li><a class="dropdown-item" href="#">Logout/Signup</a></li>
-          </ul>
-        </li>
+
+        <!-- check if user signed in-->
+        <% if (user) { %>
+
+          <!-- signed-in links -->
+          <li class="nav-item"><a class="nav-link" href="#">Featured</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <img src=<%= user.profileImageUrl%> alt="Avatar" class="avatar"/> 
+              <span id="userName"><%= user.name%></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="#">My Article</a></li>
+              <li><a class="dropdown-item" href="/user/signout">Logout</a></li>
+            </ul>
+          </li>
+
+        <% } else { %>
+
+          <% if (currentPath !== '/user/signin') { %>
+            <li class="nav-item"><a class="nav-link" href="/user/signin">Signin</a></li>
+          <% } %>
+
+          <% if (currentPath !== '/user/signup') { %>
+            <li class="nav-item"><a class="nav-link border-1 border-light" href="/user/signup">Signup</a></li>
+          <% } %>
+
+        <% } %>
+
+
       </ul>
     </div>
 
