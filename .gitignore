@@ -5,6 +5,7 @@
 # Build outputs
 /dist
 /build
+/public/uploads
 
 # Log files and temporary files
 *.log
