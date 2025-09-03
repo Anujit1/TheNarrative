@@ -7,6 +7,8 @@ const { connectMongodb } = require('./connections');
 const cookieParser = require('cookie-parser');
 const { checkForAuthenticationCookie } = require('./middleware/authentication');
 const localsMiddleware = require('./middleware/locals');
+const articleRoute = require('./routes/article');
+const ARTICLE = require('./models/Article');
 
 // variables
 const app = express();
@@ -25,9 +27,32 @@ app.use(localsMiddleware);
 
 
 // route
-app.get('/', (req, res) => {
-  return res.render('home');
+app.get('/', async (req, res) => {
+  // Fetch articles + populate creator name
+  const articles = await ARTICLE.find({})
+    .populate('createdBy', 'fullname')
+    .sort({ createdAt: -1 }) // latest first
+    .lean(); // plain JS objects (lighter than mongoose docs)
+
+  // Map only the fields you need
+  const data = articles.map(article => ({
+    title: article.title,
+    content_html: article.content_html.substring(0, 70) + "...", // preview, first 200 chars
+    coverImageURL: article.coverImageURL || '/images/default-cover.jpg', // fallback
+    createdAt: new Date(article.createdAt).toLocaleDateString("en-US", { 
+      weekday: "short", 
+      year: "numeric", 
+      month: "short", 
+      day: "numeric" 
+    }),
+    creatorName: article.createdBy.fullname,
+    slug: article.slug
+  }));
+
+  res.render('home', { articles: data });
 });
+
+app.use('/articles', articleRoute);
 
 app.use('/auth', authRoute);
 
