@@ -1,0 +1,196 @@
+/* editor */
+#editor {
+  min-height: 340px;     
+  height: auto;    
+}
+
+#editor .ql-editor {
+  min-height: 340px;     
+}
+
+.hidden{
+  display: none;
+}
+
+.btn{
+  width: 9rem;
+}
+
+
+
+/* Title styling */
+
+input::placeholder {
+  font-style: italic;
+}
+
+/* For older browsers that may require vendor prefixes */
+input::-webkit-input-placeholder {
+  /* Chrome, Safari, Opera */
+  font-style: italic;
+}
+
+input::-moz-placeholder {
+  /* Firefox 19+ */
+  font-style: italic;
+}
+
+input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  font-style: italic;
+}
+
+input::placeholder {
+  /* Standard syntax */
+  font-style: italic;
+}
+
+
+
+/* body styling */
+
+#editor {
+  min-height: 300px;
+  max-height: max-content;
+  background: #fff;
+}
+
+
+/* font picker in body */
+
+/* span.ql-picker-label.ql-active {
+  overflow: hidden;
+} */
+
+span.ql-picker-label {
+  overflow: hidden;
+}
+
+.ql-font-sans-serif {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.ql-font-serif {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.ql-font-monospace {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+.ql-font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.ql-font-inconsolata {
+  font-family: 'Inconsolata', monospace;
+}
+
+.ql-font-times-new-roman {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Label for the currently selected item */
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="sans-serif"]::before {
+  content: "Sans Serif";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="serif"]::before {
+  content: "Serif";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="monospace"]::before {
+  content: "Monospace";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="roboto"]::before {
+  content: "Roboto";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="inconsolata"]::before {
+  content: "Inconsolata";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="times-new-roman"]::before {
+  content: "Times New Roman";
+}
+
+/* Labels for the dropdown items */
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="sans-serif"]::before {
+  content: "Sans Serif";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="serif"]::before {
+  content: "Serif";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before {
+  content: "Monospace";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="roboto"]::before {
+  content: "Roboto";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="inconsolata"]::before {
+  content: "Inconsolata";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="times-new-roman"]::before {
+  content: "Times New Roman";
+}
+
+
+
+/* Article preview */
+
+.article-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.article-header h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.author-details {
+  font-size: 0.95rem;
+  color: #aaa;
+}
+
+.author-details span {
+  font-weight: 600;
+  color: #ddd;
+}
+
+.article-cover {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.article-cover img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.article-body {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #ddd;
+}
+
+.article-body img {
+  max-width: 100%;
+  margin: 1.5rem 0;
+  border-radius: 6px;
+}
+
+.article-body pre {
+  background: #1e1e1e;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}

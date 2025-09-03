@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head')%> <!-- head -->
+  <title><%= article.title %> | The Narrative</title>
+
+  <style>
+    /* Limit content width */
+    main {
+      max-width: 850px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    /* --- Article Header --- */
+    .article-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .author-details {
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+
+    .author-details span {
+      font-weight: 600;
+      color: #ddd;
+    }
+
+    .article-cover {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      width: 100%;            /* take full width */
+      max-width: 800px;       /* but don’t exceed desktop design */
+      aspect-ratio: 16/9;     /* keep 16:9 ratio automatically */
+      margin: 2rem auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .article-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;      /* crop nicely if aspect doesn’t match */
+      border-radius: 8px;
+    }
+
+    /* --- Article Body --- */
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #ddd;
+    }
+
+    .article-body pre {
+      background: #1e1e1e;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    /* --- All Images inside article body (Quill editor output) --- */
+    .article-body img,
+    .ql-editor img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 1.5rem auto;
+      border-radius: 6px;
+      object-fit: contain;       /* show whole image */
+    }
+
+    /* --- Mobile adjustments --- */
+    @media (max-width: 576px) {
+      .article-header h1 {
+        font-size: 1.6rem;
+      }
+      .author-details {
+        font-size: 0.85rem;
+      }
+    }
+
+  </style>
+  
+</head>
+
+<body class="bg-dark text-white">
+  <%- include('../partials/nav')%> <!-- navbar -->
+
+  <main>
+    <article>
+      <!-- Header -->
+      <div class="article-header">
+        <h1><%= article.title %></h1>
+        <div class="author-details d-flex justify-content-center gap-3 flex-wrap">
+          <p><span>Author:</span> <%= article.createdBy.fullname %></p>
+          <span>•</span>
+          <p>
+            <%= new Date(article.createdAt).toLocaleDateString("en-US", { 
+              weekday: "short", 
+              year: "numeric", 
+              month: "short", 
+              day: "numeric" 
+            }) %>
+          </p>
+          <span>•</span>
+          <p><%= article.readingTimeMin %> min read</p>
+        </div>
+      </div>
+
+      <!-- Cover Image -->
+      <% if (article.coverImageURL) { %>
+        <div class="article-cover">
+          <img src="<%= article.coverImageURL %>" alt="Cover image for <%= article.title %>">
+        </div>
+      <% } %>
+
+      <!-- Content -->
+      <div class="article-body ql-editor">
+        <%- article.content_html %>
+      </div>
+    </article>
+  </main>
+
+  <%- include('../partials/scripts')%>
+</body>
+</html>
