@@ -19,6 +19,19 @@ function checkForAuthenticationCookie (cookieName){
   }
 }
 
+function restrictTo (role){
+  return (req, res, next) => {
+    if(!req?.user){
+      return res.render('signin');
+    }
+    else if(role.includes(req.user.role)){
+      return next();
+    }
+    return res.redirect('/');
+  }
+}
+
 module.exports = {
-  checkForAuthenticationCookie
+  checkForAuthenticationCookie,
+  restrictTo
 }
