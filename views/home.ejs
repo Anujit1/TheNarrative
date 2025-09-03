@@ -4,6 +4,39 @@
   <head>
     <%- include('./partials/head')%> <!--head-->
     <title>The Narrative - Home</title>
+
+    <style>
+      @media (max-width: 576px) {
+        .card-title {
+          font-size: 1rem;   /* keep readable */
+          margin-bottom: 0.5rem !important;
+        }
+        .card-text {
+          font-size: 0.8rem; /* smaller for preview, author, date */
+          line-height: 1.2;
+        }
+        .card-body {
+          padding: 0.5rem !important; /* tighter spacing */
+        }
+        .card img {
+          max-height: 80px; /* keep image neat */
+          object-fit: cover;
+        }
+        .meta-row small {
+          font-size: 0.7rem;
+        }
+      }
+
+      .card-border-80 {
+        border-bottom: 1px solid #545454;
+        width: 80%;
+        margin: 0 auto; /* centers it */
+      }
+
+
+
+    </style>
+
   </head>
 
   <body class="bg-dark text-white">
@@ -11,7 +44,46 @@
     
     <%- include('./partials/nav')%> <!--navbar-->
 
-    <main></main>
+    <main class="d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
+
+      <% articles.forEach(article => { %>
+       
+      
+      <div class="card mt-1 mb-1 bg-dark text-white rounded-0 border-0 border-bottom card-border-80" style="max-width: 680px;">
+        <a class="row g-0 mt-lg-4 mb-4 justify-content-center text-decoration-none text-white" href="/articles/<%= article.slug %>">
+          
+          <!-- Cover Image -->
+          <div class="cover-image col-4 m-1 m-lg-2 ms-0 d-flex flex-column justify-content-center">
+            <img src="<%= article.coverImageURL %>" class="img-fluid rounded-1" alt="img" style="max-width: 250px; max-height: 150px;"/>
+          </div>
+
+          <!-- Article Content -->
+          <div class="col-7 m-1 m-lg-3 me-lg-0" style="max-height: 225px; max-width: 425px;">
+            <div class="card-body">
+              <h5 class="card-title"><%= article.title %></h5>
+
+              <!-- Preview -->
+              <div class="card-text mb-lg-1" style="max-height: 80px; overflow: hidden; text-overflow: ellipsis;">
+                <%- article.content_html %>
+              </div>
+
+              <p class="card-text mb-1">
+                <small class="text-white-50">Read more</small>
+              </p>
+
+              <!-- Meta row -->
+              <p class="card-text d-flex flex-row justify-content-between meta-row mb-0">
+                <small class="text-white-50">Author: <%= article.creatorName %></small>
+                <small class="text-white-50"><%= article.createdAt %></small>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <% }) %>
+
+    </main>
 
     <footer></footer>
 
