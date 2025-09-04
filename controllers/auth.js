@@ -5,7 +5,7 @@ const { createUserToken } = require('../services/authentication');
 const cookieOpts = {
   httpOnly: true,
   sameSite: 'lax',       // or 'strict'
-  secure: false,         // set true in production (HTTPS)
+  secure: true,         // set true in production (HTTPS)
   path: '/',             // match on clearCookie
   maxAge: 60 * 60 * 1000 // 1h
 };
