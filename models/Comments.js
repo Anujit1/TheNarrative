@@ -1,6 +1,8 @@
 const { Schema, model } = require('mongoose');
 
+
 const commentSchema = new Schema({
+
   content: {
     type: String,
     required: true
@@ -15,6 +17,7 @@ const commentSchema = new Schema({
     ref: 'user',
     required: true
   }
+  
 }, { timestamps: true, versionKey: false });
 
 

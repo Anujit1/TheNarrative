@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose');
-const slugify = require('slugify');
+const slugify = require('slugify'); 
+const {Schema, model } = require('mongoose');
 
 const ArticleSchema = new Schema({
   title: {
