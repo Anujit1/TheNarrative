@@ -56,8 +56,8 @@ app.use('/articles', articleRoute);
 
 app.use('/auth', authRoute);
 
+
 if (!process.env.VERCEL) {
-  app.listen(PORT, () =>
-    console.log(`Server running at http://localhost:${PORT}`)
-  );
+  app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
 }
+module.exports = app;
