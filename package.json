@@ -6,7 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node api/index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,7 +22,6 @@
     "mongoose": "^8.18.0",
     "multer": "^2.0.2",
     "sanitize-html": "^2.17.0",
-    "serverless-http": "^4.0.0",
     "slugify": "^1.6.6"
   },
   "devDependencies": {
