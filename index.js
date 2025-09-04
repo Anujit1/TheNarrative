@@ -9,7 +9,6 @@ const { checkForAuthenticationCookie } = require('./middleware/authentication');
 const localsMiddleware = require('./middleware/locals');
 const articleRoute = require('./routes/article');
 const ARTICLE = require('./models/Article');
-const serverless = require('serverless-http');
 
 // variables
 const app = express();
@@ -62,5 +61,3 @@ if (!process.env.VERCEL) {
     console.log(`Server running at http://localhost:${PORT}`)
   );
 }
-
-module.exports = app;
