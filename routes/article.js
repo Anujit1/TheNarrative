@@ -6,6 +6,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');
+const Comment = require('../models/Comments');
 
 
 // ---------- Multer Storage Config ----------
@@ -47,18 +48,6 @@ const uploadInline = multer({ storage: inlineStorage });
 // ---------- Routes ----------
 
 
-// no use
-/* // GET /articles - list all
-router.get('/', async (req, res) => {
-  const articles = await Article.find()
-    .populate('createdBy', 'fullname')
-    .sort({ createdAt: -1 })
-    .lean();
-
-  res.render('articles/listArticle', { articles });
-}); */
-
-
 //  -- create route --
 // GET /articles/create - render create form
 router.get('/create', restrictTo(['USER', 'ADMIN']), (req, res) => {
@@ -68,10 +57,7 @@ router.get('/create', restrictTo(['USER', 'ADMIN']), (req, res) => {
 });
 
 // POST /articles - save new article with cover image
-router.post(
-  '/',
-
-  restrictTo(['USER', 'ADMIN']),
+router.post('/', restrictTo(['USER', 'ADMIN']), 
 
   (req, res, next) => {
     req.articleId = req.query.articleId
@@ -114,8 +100,7 @@ router.post(
       coverImageURL
     });
 
-    // res.redirect(`/articles/${article.slug}`);
-    res.redirect('/');
+    res.redirect(`/articles/${article.slug}`);
   }
 );
 
@@ -133,7 +118,9 @@ router.post('/:articleId/upload-image', restrictTo(['USER', 'ADMIN']),
 );
 
 
-//  -- view an article by id, route --
+//  ------ view an article by id, route -------
+
+
 // GET /articles/:slug - view single article
 router.get('/:slug', async (req, res) => {
   const article = await Article.findOne({ slug: req.params.slug })
@@ -143,7 +130,38 @@ router.get('/:slug', async (req, res) => {
   if (!article) return res.status(404).send('Article not found');
 
   
-  res.render('articles/viewArticle', { article });
+  const comments = await Comment.find({ articleId: article._id })
+    .populate('createdBy', 'fullname profileImageURL')
+    .populate('articleId', 'slug')
+    .sort({ createdAt: -1 }) // latest first
+    .lean();
+
+  const commentsData = comments.map(c => ({
+    comment: c.content,
+    username: c.createdBy.fullname,
+    userProfileImage: c.createdBy.profileImageURL
+  }));
+
+
+  res.render('articles/viewArticle', { article, commentsData });
+});
+
+
+
+//  ------ comment -------
+
+//comment route
+router.post('/comment/:slug', async (req, res) => {
+
+  const article = await Article.findOne({slug: req.params.slug});
+  
+  await Comment.create({
+    content: req.body.content,
+    articleId: article._id,
+    createdBy: req.user._id
+  });
+
+  return res.redirect(`/articles/${req.params.slug}`);
 });
 
 
