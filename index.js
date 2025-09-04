@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const { checkForAuthenticationCookie } = require('./middleware/authentication');
 const localsMiddleware = require('./middleware/locals');
 const articleRoute = require('./routes/article');
-const ARTICLE = require('./models/article');
+const ARTICLE = require('./models/Article');
 const serverless = require('serverless-http');
 
 // variables

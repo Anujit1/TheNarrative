@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const sanitizeHtml = require('sanitize-html');
-const Article = require('../models/article');
+const Article = require('../models/Article');
 const { restrictTo } = require('../middleware/authentication');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');
-const Comment = require('../models/comments');
+const Comment = require('../models/Comments');
 
 
 // ---------- Multer Storage Config ----------
