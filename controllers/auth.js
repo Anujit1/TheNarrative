@@ -1,4 +1,4 @@
-const USER = require('../models/User');
+const USER = require('../models/user');
 const { createUserToken } = require('../services/authentication');
 
 

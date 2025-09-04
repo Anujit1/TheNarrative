@@ -1,14 +1,14 @@
 // modules
+const {PORT, MONGO_URI} = require('./config');
+const { connectMongodb } = require('./connections');
 const express = require('express');
 const path = require('path');
-const {PORT, MONGO_URI} = require('./config');
 const authRoute = require('./routes/auth')
-const { connectMongodb } = require('./connections');
 const cookieParser = require('cookie-parser');
 const { checkForAuthenticationCookie } = require('./middleware/authentication');
 const localsMiddleware = require('./middleware/locals');
 const articleRoute = require('./routes/article');
-const ARTICLE = require('./models/Article');
+const ARTICLE = require('./models/article');
 
 // variables
 const app = express();
